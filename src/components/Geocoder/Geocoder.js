@@ -1,7 +1,5 @@
 import React from 'react';
 import Downshift from 'downshift';
-import { ApiKey } from "@esri/arcgis-rest-auth";
-import { geocode } from '@esri/arcgis-rest-geocoding';
 
 import matchSorter from 'match-sorter';
 import {
@@ -14,20 +12,12 @@ import {
   XIcon,
   css,
 } from './Styles';
-import Geocode from './Geocode';
-
-const API_KEY =
-  "AAPK60004e6795f54dfb8875d4d9d43eb3f2NQ7ccYJOMHZswyEuQA2_xkxG2kOmYbtCbd1EVAtftXb9TyJfZpzIWQfgEyliK-Do"; // YOUR_API_KEY
+import { Suggest, geocodeResult } from './Geocode';
 
 export default function Search() {
   const handleStateChange = ({ selectedItem }) => {
-    const authentication = new ApiKey({ key: API_KEY});
     if (selectedItem) {
-      const { magicKey } = selectedItem;
-      geocode({ magicKey, maxLocations: 1, authentication }).then((res) => {
-        console.log(res.candidates);
-        alert(res.candidates[0].address);
-      });
+      geocodeResult(selectedItem);
     }
   };
   const getItems = (allItems, filter) => {
@@ -88,7 +78,7 @@ export default function Search() {
                 }
 
                 return (
-                  <Geocode address={`${inputValue}`}>
+                  <Suggest address={`${inputValue}`}>
                     {({ loading, error, data = [] }) => {
                       if (loading) {
                         return <Item disabled>Loading...</Item>;
@@ -116,7 +106,7 @@ export default function Search() {
                         </Item>
                       ));
                     }}
-                  </Geocode>
+                  </Suggest>
                 );
               })()}
             </Menu>
