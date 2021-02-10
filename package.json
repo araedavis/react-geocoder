@@ -5,8 +5,9 @@
   "dependencies": {
     "@emotion/core": "^10.0.6",
     "@emotion/styled": "^10.0.6",
-    "@esri/arcgis-rest-geocoder": "^1.19.2",
-    "@esri/arcgis-rest-request": "^1.19.2",
+    "@esri/arcgis-rest-auth": "^3.0.0",
+    "@esri/arcgis-rest-geocoding": "^3.0.0",
+    "@esri/arcgis-rest-request": "^3.0.0",
     "downshift": "^5.1.0",
     "emotion": "^10.0.6",
     "lodash.debounce": "^4.0.8",

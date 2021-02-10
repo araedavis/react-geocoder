@@ -1,6 +1,7 @@
 import React from 'react';
 import Downshift from 'downshift';
-import { geocode } from '@esri/arcgis-rest-geocoder';
+import { ApiKey } from "@esri/arcgis-rest-auth";
+import { geocode } from '@esri/arcgis-rest-geocoding';
 
 import matchSorter from 'match-sorter';
 import {
@@ -15,11 +16,15 @@ import {
 } from './Styles';
 import Geocode from './Geocode';
 
+const API_KEY =
+  "AAPK60004e6795f54dfb8875d4d9d43eb3f2NQ7ccYJOMHZswyEuQA2_xkxG2kOmYbtCbd1EVAtftXb9TyJfZpzIWQfgEyliK-Do"; // YOUR_API_KEY
+
 export default function Search() {
   const handleStateChange = ({ selectedItem }) => {
+    const authentication = new ApiKey({ key: API_KEY});
     if (selectedItem) {
       const { magicKey } = selectedItem;
-      geocode({ magicKey, maxLocations: 1 }).then((res) => {
+      geocode({ magicKey, maxLocations: 1, authentication }).then((res) => {
         console.log(res.candidates);
         alert(res.candidates[0].address);
       });
